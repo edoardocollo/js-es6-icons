@@ -55,9 +55,11 @@ function printElement(element){
 
   function colorForFamily (element){
     // definiamo dei colori per le icone (blue, orange, purple)
+    //da rivedere con destrutturazione
     var blu = 'blue';
     var arancione = 'orange';
     var viola = 'purple';
+    //implementare switch
     if (element.family == 'animali') {
       element.colore = blu;
     }else if (element.family == 'cibo') {
