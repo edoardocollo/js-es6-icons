@@ -30,6 +30,9 @@ main {
   border-radius: 5px;
   box-shadow: 1px 1px 3px 3px black;
 }
+.hide {
+  display: none;
+}
 i {
   font-size: 80px;
 }

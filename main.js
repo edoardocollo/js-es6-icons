@@ -36,15 +36,52 @@ const mainTarget = $('main');
 
  iconsArray.forEach(printElement);
 
+
+ const tutti = $('#tutti');
+ const animali = $('#animali');
+ const cibo = $('#cibo');
+ const utenti = $('#utenti');
+ const card = $('.card');
+ animali.click(function(){
+   card.each(function(index){
+     $(this).addClass('hide');
+     if ($(this).hasClass('animali')) {
+      $(this).removeClass('hide');
+     }
+   })
+ })
+ cibo.click(function(){
+   card.each(function(index){
+     $(this).addClass('hide');
+     if ($(this).hasClass('cibo')) {
+      $(this).removeClass('hide');
+     }
+   })
+ })
+ utenti.click(function(){
+   card.each(function(index){
+     $(this).addClass('hide');
+     if ($(this).hasClass('utenti')) {
+      $(this).removeClass('hide');
+     }
+   })
+ })
+ tutti.click(function(){
+   card.each(function(index){
+     $(this).removeClass('hide');
+   })
+ })
+
+
 /* ---- FUNCTIONS ----*/
 
 
 function printElement(element){
-  let name = element.name;
-  let colore = element.colore;
-  let prefix = element.prefix;
-  let type = element.type;
-  let family = element.family;
+  const name = element.name;
+  const colore = element.colore;
+  const prefix = element.prefix;
+  const type = element.type;
+  const family = element.family;
   mainTarget.append(`
     <div class="card ${family}">
     <i class="${prefix} ${type}"style="color:${colore};"></i>
@@ -56,9 +93,9 @@ function printElement(element){
   function colorForFamily (element){
     // definiamo dei colori per le icone (blue, orange, purple)
     //da rivedere con destrutturazione
-    var blu = 'blue';
-    var arancione = 'orange';
-    var viola = 'purple';
+    const blu = 'blue';
+    const arancione = 'orange';
+    const viola = 'purple';
     //implementare switch
     if (element.family == 'animali') {
       element.colore = blu;
