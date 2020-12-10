@@ -25,7 +25,7 @@ iconsArray.push(new icon('spia', 'fas', 'fa-user-secret','utenti'));
 iconsArray.push(new icon('dottore', 'fas', 'fa-user-md','utenti'));
 iconsArray.push(new icon('rider', 'fas', 'fa-user-injured','utenti'));
 iconsArray.push(new icon('studente', 'fas', 'fa-user-graduate','utenti'));
-console.log(iconsArray);
+// console.log(iconsArray);
   // Semezioniamo il container icons
 const mainTarget = $('main');
 
@@ -42,8 +42,9 @@ const mainTarget = $('main');
  const cibo = $('#cibo');
  const utenti = $('#utenti');
  const card = $('.card');
+// riscrivere con sintassi es6 e con funzione unica
  animali.click(function(){
-   card.each(function(index){
+   card.each(function(){
      $(this).addClass('hide');
      if ($(this).hasClass('animali')) {
       $(this).removeClass('hide');
@@ -51,7 +52,7 @@ const mainTarget = $('main');
    })
  })
  cibo.click(function(){
-   card.each(function(index){
+   card.each(function(){
      $(this).addClass('hide');
      if ($(this).hasClass('cibo')) {
       $(this).removeClass('hide');
@@ -59,7 +60,7 @@ const mainTarget = $('main');
    })
  })
  utenti.click(function(){
-   card.each(function(index){
+   card.each(function(){
      $(this).addClass('hide');
      if ($(this).hasClass('utenti')) {
       $(this).removeClass('hide');
@@ -67,7 +68,7 @@ const mainTarget = $('main');
    })
  })
  tutti.click(function(){
-   card.each(function(index){
+   card.each(function(){
      $(this).removeClass('hide');
    })
  })
@@ -84,8 +85,10 @@ function printElement(element){
   const family = element.family;
   mainTarget.append(`
     <div class="card ${family}">
+    <div class="card_wrap">
     <i class="${prefix} ${type}"style="color:${colore};"></i>
     <h3>${name}</h3>
+    </div>
     </div>
     `);
   }
