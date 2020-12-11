@@ -17,7 +17,7 @@ categorie.forEach(e =>{
     element.color = randomColor;
   });
   newIconsArray.push(newArray)
-})
+});
 console.log(newIconsArray);
 let margedIcons = [];
 for (let i = 0; i < newIconsArray.length; i++) {
@@ -25,12 +25,19 @@ for (let i = 0; i < newIconsArray.length; i++) {
 
 }
 console.log(margedIcons);
+// seleziono target contenitore nella dom
 const mainTarget = document.querySelector('main');
+// stampo nel contenitore
 margedIcons.forEach(e =>{
   printElement(e, mainTarget);
-})
-
-
+});
+const selectTarget = document.querySelector('select');
+categorie.forEach(e => {
+  const markup = `
+    <option id="${e}" value="${e}">${e}</option>
+    `;
+  selectTarget.insertAdjacentHTML('beforeend', markup);
+});
 
 
 
@@ -122,7 +129,7 @@ function objectCreator(){
 }
 
 function arrayCategories(arrayTarget){
-  const categories = [];
+  const categories = ['tutte'];
   arrayTarget.forEach(function(element){
     if (!categories.includes(element.family)) {
       categories.push(element.family);
