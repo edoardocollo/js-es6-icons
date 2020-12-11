@@ -19,13 +19,16 @@ categorie.forEach(e =>{
   newIconsArray.push(newArray)
 })
 console.log(newIconsArray);
-const margedIcons = [];
-for (let i = 1; i < newIconsArray.length; i++) {
-  console.log(newIconsArray[i]);
+let margedIcons = [];
+for (let i = 0; i < newIconsArray.length; i++) {
+  margedIcons = margedIcons.concat(newIconsArray[i])
+
 }
-
-
-
+console.log(margedIcons);
+const mainTarget = document.querySelector('main');
+margedIcons.forEach(e =>{
+  printElement(e, mainTarget);
+})
 
 
 
@@ -144,16 +147,17 @@ function coloreRandom(){
   return color;
 }
 
-function printElement(element){
-  const {name,colore,prefix,type,family} = element;
-  mainTarget.append(`
+function printElement(element, target){
+  const {name,color,prefix,type,family} = element;
+  const markup = `
     <div class="card ${family}">
     <div class="card_wrap">
-    <i class="${prefix} ${type}"style="color:${colore};"></i>
+    <i class="${prefix} ${type}"style="color:${color};"></i>
     <h3>${name}</h3>
     </div>
     </div>
-    `);
+    `;
+  target.insertAdjacentHTML('beforeend', markup);
   }
 
   function colorForFamily (element){
