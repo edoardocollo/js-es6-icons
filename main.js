@@ -94,11 +94,12 @@ function arrayCategories(arrayTarget){
 
 function printElement(element){
   // utilizzare destructuring
-  const name = element.name;
-  const colore = element.colore;
-  const prefix = element.prefix;
-  const type = element.type;
-  const family = element.family;
+  const {name,colore,prefix,type,family} = element;
+  // const name = element.name;
+  // const colore = element.colore;
+  // const prefix = element.prefix;
+  // const type = element.type;
+  // const family = element.family;
   mainTarget.append(`
     <div class="card ${family}">
     <div class="card_wrap">
