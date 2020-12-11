@@ -2,53 +2,89 @@ $(function() {
   // Creiamo array di oggetti per le icone con le seguenti proprieta: name, prefix, type, family
 const iconsArray = objectCreator();
 console.log(iconsArray);
+// identifico family ricorrenti per determinare categorie
 const categorie = arrayCategories(iconsArray);
 console.log(categorie);
- //aggiungiamo dei colori usando una funzione
-iconsArray.forEach(colorForFamily);
+// genero nuovo vettore suddiviso per family
+const newIconsArray = [];
+categorie.forEach(e =>{
+  const newArray = estraiPerKeyword(iconsArray, e);
+  const randomColor = coloreRandom()
 
-// Semezioniamo il container icons
-const mainTarget = $('main');
- //inseriamo le icone nel container (possiamo creare una funzione tipo print() per inserire gli elementi e richiamarla qui)
+  // COME INSERIRE DAL FONDO
+  //////////////////////////////////
+  newArray.forEach(element=>{
+    element.color = randomColor;
+  });
+  newIconsArray.push(newArray)
+})
+console.log(newIconsArray);
+const margedIcons = [];
+for (let i = 1; i < newIconsArray.length; i++) {
+  console.log(newIconsArray[i]);
+}
 
-iconsArray.forEach(printElement);
 
 
- const tutti = $('#tutti');
- const animali = $('#animali');
- const cibo = $('#cibo');
- const utenti = $('#utenti');
- const card = $('.card');
-// riscrivere con sintassi es6 e con funzione unica
- animali.click(function(){
-   card.each(function(){
-     $(this).addClass('hide');
-     if ($(this).hasClass('animali')) {
-      $(this).removeClass('hide');
-     }
-   })
- })
- cibo.click(function(){
-   card.each(function(){
-     $(this).addClass('hide');
-     if ($(this).hasClass('cibo')) {
-      $(this).removeClass('hide');
-     }
-   })
- })
- utenti.click(function(){
-   card.each(function(){
-     $(this).addClass('hide');
-     if ($(this).hasClass('utenti')) {
-      $(this).removeClass('hide');
-     }
-   })
- })
- tutti.click(function(){
-   card.each(function(){
-     $(this).removeClass('hide');
-   })
- })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//  //aggiungiamo dei colori usando una funzione
+// iconsArray.forEach(colorForFamily);
+//
+// // Semezioniamo il container icons
+// const mainTarget = $('main');
+//  //inseriamo le icone nel container (possiamo creare una funzione tipo print() per inserire gli elementi e richiamarla qui)
+//
+// iconsArray.forEach(printElement);
+//
+//
+//  const tutti = $('#tutti');
+//  const animali = $('#animali');
+//  const cibo = $('#cibo');
+//  const utenti = $('#utenti');
+//  const card = $('.card');
+// // riscrivere con sintassi es6 e con funzione unica
+//  animali.click(function(){
+//    card.each(function(){
+//      $(this).addClass('hide');
+//      if ($(this).hasClass('animali')) {
+//       $(this).removeClass('hide');
+//      }
+//    })
+//  })
+//  cibo.click(function(){
+//    card.each(function(){
+//      $(this).addClass('hide');
+//      if ($(this).hasClass('cibo')) {
+//       $(this).removeClass('hide');
+//      }
+//    })
+//  })
+//  utenti.click(function(){
+//    card.each(function(){
+//      $(this).addClass('hide');
+//      if ($(this).hasClass('utenti')) {
+//       $(this).removeClass('hide');
+//      }
+//    })
+//  })
+//  tutti.click(function(){
+//    card.each(function(){
+//      $(this).removeClass('hide');
+//    })
+//  })
 
 
 /* ---- FUNCTIONS ----*/
@@ -92,14 +128,24 @@ function arrayCategories(arrayTarget){
   return categories;
 }
 
+function estraiPerKeyword (arrayInput, keyword){
+
+  const arrayOutpu = arrayInput.filter(element =>{
+    return element.family === keyword;
+  });
+  return arrayOutpu;
+}
+
+function coloreRandom(){
+  const num1 = Math.floor(Math.random() * (255 - 0 + 1) ) + 0;
+  const num2 = Math.floor(Math.random() * (255 - 0 + 1) ) + 0;
+  const num3 = Math.floor(Math.random() * (255 - 0 + 1) ) + 0;
+  const color =`rgb(${num1}, ${num2}, ${num3})`
+  return color;
+}
+
 function printElement(element){
-  // utilizzare destructuring
   const {name,colore,prefix,type,family} = element;
-  // const name = element.name;
-  // const colore = element.colore;
-  // const prefix = element.prefix;
-  // const type = element.type;
-  // const family = element.family;
   mainTarget.append(`
     <div class="card ${family}">
     <div class="card_wrap">
