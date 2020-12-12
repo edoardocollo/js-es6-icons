@@ -1,17 +1,17 @@
 $(function() {
   // Creiamo array di oggetti per le icone con le seguenti proprieta: name, prefix, type, family
 const iconsArray = objectCreator();
-console.log(iconsArray);
+// console.log(iconsArray);
 // identifico family ricorrenti per determinare categorie
 const categorie = arrayCategories(iconsArray);
-console.log(categorie);
+// console.log(categorie);
 // genero nuovo vettore suddiviso per family
 const newIconsArray = [];
 categorie.forEach(e =>{
   const newArray = estraiPerKeyword(iconsArray, e);
   const randomColor = coloreRandom()
-
-  // COME INSERIRE DAL FONDO
+  // attribuisco colore random in base a categorie
+  // COME INSERIRE DAL FONDO ?
   //////////////////////////////////
   newArray.forEach(element=>{
     element.color = randomColor;
@@ -19,6 +19,7 @@ categorie.forEach(e =>{
   newIconsArray.push(newArray)
 });
 console.log(newIconsArray);
+// genero nuovo array di riferimento contenente tutte le iocone non suddivise per categoria
 let margedIcons = [];
 for (let i = 0; i < newIconsArray.length; i++) {
   margedIcons = margedIcons.concat(newIconsArray[i])
@@ -31,12 +32,29 @@ const mainTarget = document.querySelector('main');
 margedIcons.forEach(e =>{
   printElement(e, mainTarget);
 });
+// seleziono il tag select nella DOM
 const selectTarget = document.querySelector('select');
+// genero un opzione per categoria
 categorie.forEach(e => {
   const markup = `
     <option id="${e}" value="${e}">${e}</option>
     `;
   selectTarget.insertAdjacentHTML('beforeend', markup);
+});
+// genero un event listener per ogni option
+selectTarget.addEventListener('change', event =>{
+  const categoryValue = event.target.value;
+  console.log(categoryValue);
+  mainTarget.innerHTML = '';
+  // stampo card in base a family filtrate con categoryValue
+  margedIcons.forEach(e =>{
+    if (categoryValue === 'tutte') {
+      printElement(e, mainTarget);
+    }
+    if (e.family === categoryValue) {
+      printElement(e, mainTarget);
+    }
+  });
 });
 
 
@@ -50,51 +68,6 @@ categorie.forEach(e => {
 
 
 
-//  //aggiungiamo dei colori usando una funzione
-// iconsArray.forEach(colorForFamily);
-//
-// // Semezioniamo il container icons
-// const mainTarget = $('main');
-//  //inseriamo le icone nel container (possiamo creare una funzione tipo print() per inserire gli elementi e richiamarla qui)
-//
-// iconsArray.forEach(printElement);
-//
-//
-//  const tutti = $('#tutti');
-//  const animali = $('#animali');
-//  const cibo = $('#cibo');
-//  const utenti = $('#utenti');
-//  const card = $('.card');
-// // riscrivere con sintassi es6 e con funzione unica
-//  animali.click(function(){
-//    card.each(function(){
-//      $(this).addClass('hide');
-//      if ($(this).hasClass('animali')) {
-//       $(this).removeClass('hide');
-//      }
-//    })
-//  })
-//  cibo.click(function(){
-//    card.each(function(){
-//      $(this).addClass('hide');
-//      if ($(this).hasClass('cibo')) {
-//       $(this).removeClass('hide');
-//      }
-//    })
-//  })
-//  utenti.click(function(){
-//    card.each(function(){
-//      $(this).addClass('hide');
-//      if ($(this).hasClass('utenti')) {
-//       $(this).removeClass('hide');
-//      }
-//    })
-//  })
-//  tutti.click(function(){
-//    card.each(function(){
-//      $(this).removeClass('hide');
-//    })
-//  })
 
 
 /* ---- FUNCTIONS ----*/
@@ -125,6 +98,12 @@ function objectCreator(){
   contenitore.push(new icon('dottore', 'fas', 'fa-user-md','utenti'));
   contenitore.push(new icon('rider', 'fas', 'fa-user-injured','utenti'));
   contenitore.push(new icon('studente', 'fas', 'fa-user-graduate','utenti'));
+  contenitore.push(new icon('linux', 'fab', 'fa-linux','geek'));
+  contenitore.push(new icon('ubuntu', 'fab', 'fa-ubuntu','geek'));
+  contenitore.push(new icon('suse', 'fab', 'fa-suse','geek'));
+  contenitore.push(new icon('redhat', 'fab', 'fa-redhat','geek'));
+  contenitore.push(new icon('fedora', 'fab', 'fa-fedora','geek'));
+  contenitore.push(new icon('centos', 'fab', 'fa-centos','geek'));
   return contenitore;
 }
 
@@ -167,20 +146,4 @@ function printElement(element, target){
   target.insertAdjacentHTML('beforeend', markup);
   }
 
-  function colorForFamily (element){
-    // definiamo dei colori per le icone (blue, orange, purple)
-    //da rivedere con destrutturazione
-    const blu = 'blue';
-    const arancione = 'orange';
-    const viola = 'purple';
-    //implementare switch
-    if (element.family == 'animali') {
-      element.colore = blu;
-    }else if (element.family == 'cibo') {
-      element.colore = arancione;
-    }else if (element.family == 'utenti') {
-      element.colore = viola;
-    }
-
-  }
 });
